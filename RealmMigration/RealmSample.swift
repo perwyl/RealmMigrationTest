@@ -25,8 +25,10 @@ class RealmSample {
         let config = Realm.Configuration(
             schemaVersion: 1,
             migrationBlock: { migration, oldSchemaVersion in
+                
+                print("Old Schema Version \(oldSchemaVersion)")
           
-                migration.create("StringTimestamp", value: [ "value": "",  "createdAt": NSDate() ])
+               // migration.create("StringTimestamp", value: [ "value": "",  "createdAt": NSDate() ])
                 
                 if (oldSchemaVersion < 1) {
                     migration.enumerate(Customer.className()){oldObject, newObject in
@@ -37,7 +39,7 @@ class RealmSample {
                         
                         let firstNameTimeStamp =  StringTimestamp(newValue: firstName)
                         
-                        migration.create("StringTimestamp", value: firstNameTimeStamp)
+                        //migration.create("StringTimestamp", value: firstNameTimeStamp)
                         newObject!["firstName"] = firstNameTimeStamp
                     }
                    
