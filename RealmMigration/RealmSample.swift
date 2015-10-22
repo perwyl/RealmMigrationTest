@@ -22,15 +22,15 @@ class RealmSample {
         Realm.Configuration.defaultConfiguration.path = getRealmPath()
 
         
-        let config = Realm.Configuration(
-            schemaVersion: 1,
+        let config = Realm.Configuration(path: getRealmPath(),
+            schemaVersion: 2,
             migrationBlock: { migration, oldSchemaVersion in
                 
                 print("Old Schema Version \(oldSchemaVersion)")
           
                // migration.create("StringTimestamp", value: [ "value": "",  "createdAt": NSDate() ])
                 
-                if (oldSchemaVersion < 1) {
+                if (oldSchemaVersion < 2) {
                     migration.enumerate(Customer.className()){oldObject, newObject in
                         
                         let firstName = oldObject!["firstName"] as? String
